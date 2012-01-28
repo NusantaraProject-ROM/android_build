@@ -28,8 +28,7 @@ endif
 # Additional settings used in all AOSP builds
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.config.ringtone?=The_big_adventure.ogg \
-    ro.config.notification_sound?=Popcorn.ogg \
-    ro.com.android.dataroaming?=true \
+    ro.config.notification_sound?=Popcorn.ogg
 
 # More AOSP packages
 PRODUCT_PACKAGES += \
