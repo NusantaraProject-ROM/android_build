@@ -24,7 +24,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_product.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_product.mk)
 
-$(call inherit-product, frameworks/base/data/sounds/AllAudio.mk)
+$(call inherit-product, frameworks/base/data/sounds/GoogleAudio.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.dataroaming=true \
