@@ -20,15 +20,15 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_product.mk)
 
 # Default AOSP sounds
 ifeq ($(NAD_BUILD),)
-$(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
+$(call inherit-product-if-exists, frameworks/base/data/sounds/GoogleAudio.mk)
 else
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage14.mk)
 endif
 
 # Additional settings used in all AOSP builds
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.config.ringtone?=Ring_Synth_04.ogg \
-    ro.config.notification_sound?=pixiedust.ogg \
+    ro.config.ringtone?=The_big_adventure.ogg \
+    ro.config.notification_sound?=Popcorn.ogg \
     ro.com.android.dataroaming?=true \
 
 # More AOSP packages
