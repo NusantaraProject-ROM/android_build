@@ -516,7 +516,6 @@ def _LoadOemDicts(oem_source):
       oem_dicts.append(common.LoadDictionaryFromLines(fp.readlines()))
   return oem_dicts
 
-
 class StreamingPropertyFiles(PropertyFiles):
   """A subclass for computing the property-files for streaming A/B OTAs."""
 
