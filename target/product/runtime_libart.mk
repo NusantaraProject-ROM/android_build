@@ -50,7 +50,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     dalvik.vm.dex2oat-Xms=64m \
     dalvik.vm.dex2oat-Xmx=512m \
     dalvik.vm.usejit=true \
-    dalvik.vm.usejitprofiles=true \
+    dalvik.vm.usejitprofiles=false \
     dalvik.vm.dexopt.secondary=true \
     dalvik.vm.appimageformat=lz4
 
