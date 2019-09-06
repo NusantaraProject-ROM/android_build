@@ -1177,9 +1177,11 @@ DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 .KATI_READONLY := DEFAULT_DATA_OUT_MODULES
 
 ifneq ($(NAD_BUILD),)
+ifneq ($(wildcard device/nad/sepolicy/common/sepolicy.mk),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
 $(eval include device/nad/sepolicy/common/sepolicy.mk)
+endif
 endif
 
 # Include any vendor specific config.mk file
