@@ -1509,6 +1509,21 @@ else if get_stage("%(bcb_dev)s") != "3/3" then
   script.Print("Source: {}".format(source_info.fingerprint))
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  android_version = target_info.GetBuildProp("ro.build.version.release")
+  build_id = target_info.GetBuildProp("ro.build.id")
+  build_date = target_info.GetBuildProp("ro.nad.build.date")
+  device = target_info.GetBuildProp("ro.nad.device")
+
+  script.Print("----------------------------------------------");
+  script.Print("              Nusantara Project");
+  script.Print("               by Team Nad");
+  script.Print("----------------------------------------------");
+  script.Print(" Android version: %s"%(android_version));
+  script.Print(" Build id: %s"%(build_id));
+  script.Print(" Build date: %s"%(build_date));
+  script.Print(" Device: %s"%(device));
+  script.Print("----------------------------------------------");
+
   script.Print("Verifying current system...")
 
   device_specific.IncrementalOTA_VerifyBegin()
