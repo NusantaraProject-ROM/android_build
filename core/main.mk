@@ -164,6 +164,10 @@ else
   endif
 endif
 
+#
+# -----------------------------------------------------------------
+# Add our NAD properties to the build properties.
+ADDITIONAL_SYSTEM_PROPERTIES += $(NAD_PROPERTIES)
 
 # Bring in standard build system definitions.
 include $(BUILD_SYSTEM)/definitions.mk
