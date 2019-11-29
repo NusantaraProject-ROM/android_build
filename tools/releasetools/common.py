@@ -3357,7 +3357,9 @@ class BlockDifference(object):
 
     return ctx.hexdigest()
 
-
+    call = ('delete_recursive("/data/system/package_cache");')
+    script.AppendExtra(script.WordWrap(call))
+    
 # Expose these two classes to support vendor-specific scripts
 DataImage = images.DataImage
 EmptyImage = images.EmptyImage
