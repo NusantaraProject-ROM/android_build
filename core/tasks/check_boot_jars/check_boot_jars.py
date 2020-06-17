@@ -49,8 +49,10 @@ def CheckJar(whitelist_path, jar):
   if p.returncode != 0:
     return False
   items = stdout.split()
+  classes = 0
   for f in items:
     if f.endswith('.class'):
+      classes += 1
       package_name = os.path.dirname(f)
       package_name = package_name.replace('/', '.')
       # Skip class without a package name
@@ -59,6 +61,9 @@ def CheckJar(whitelist_path, jar):
                               'in the whitelist %s of packages allowed on the bootclasspath.'
                               % (jar, f, package_name, whitelist_path))
         return False
+  if classes == 0:
+    print >> sys.stderr, ('Error: %s does not contain any class files.' % jar)
+    return False
   return True
 
 
