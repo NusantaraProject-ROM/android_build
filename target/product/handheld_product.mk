@@ -27,6 +27,7 @@ PRODUCT_PACKAGES += \
     Contacts \
     DeskClock \
     Gallery2 \
+    LatinIME \
     Launcher3QuickStep \
     Music \
     OneTimeInitializer \
@@ -37,11 +38,6 @@ PRODUCT_PACKAGES += \
     SystemUI \
     WallpaperCropper \
     frameworks-base-overlays
-
-ifeq ($(NAD_BUILD),)
-PRODUCT_PACKAGES += \
-    LatinIME
-endif
 
 PRODUCT_PACKAGES_DEBUG += \
     frameworks-base-overlays-debug
