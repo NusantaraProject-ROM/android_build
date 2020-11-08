@@ -18,6 +18,7 @@ if [ -n "$PLATFORM_SECURITY_PATCH_OVERRIDE" ] ; then
   echo "ro.nad.build.version.security_patch=$PLATFORM_SECURITY_PATCH"
 else
   echo "ro.build.version.security_patch=$PLATFORM_SECURITY_PATCH"
+  echo "ro.build.version.real_security_patch=$PLATFORM_REAL_SECURITY_PATCH"
 fi
 echo "ro.build.version.base_os=$PLATFORM_BASE_OS"
 echo "ro.build.version.min_supported_target_sdk=$PLATFORM_MIN_SUPPORTED_TARGET_SDK_VERSION"
