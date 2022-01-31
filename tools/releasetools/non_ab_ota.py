@@ -116,18 +116,6 @@ def GetBlockDifferences(target_zip, source_zip, target_info, source_info,
   return block_diff_dict
 
 
-def CopyInstallTools(output_zip):
-  has_install_tools = False
-  install_path = os.path.join(OPTIONS.input_tmp, "INSTALL")
-  for root, subdirs, files in os.walk(install_path):
-     for f in files:
-      install_source = os.path.join(root, f)
-      install_target = os.path.join("install", os.path.relpath(root, install_path), f)
-      output_zip.write(install_source, install_target)
-      has_install_tools = True
-  return has_install_tools
-
-
 def WriteFullOTAPackage(input_zip, output_file):
   target_info = common.BuildInfo(OPTIONS.info_dict, OPTIONS.oem_dicts)
 
@@ -225,19 +213,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   device_specific.FullOTA_InstallBegin()
 
-  if CopyInstallTools(output_zip):
-    script.UnpackPackageDir("install", "/tmp/install")
-    script.SetPermissionsRecursive("/tmp/install", 0, 0, 0o755, 0o644, None, None)
-    script.SetPermissionsRecursive("/tmp/install/bin", 0, 0, 0o755, 0o755, None, None)
-
-  if target_info.get("system_root_image") == "true":
-    sysmount = "/"
-  else:
-    sysmount = "/system"
-
-  if OPTIONS.backuptool:
-    script.RunBackup("backup", sysmount, target_info.get('use_dynamic_partitions') == "true")
-
   # All other partitions as well as the data wipe use 10% of the progress, and
   # the update of the system partition takes the remaining progress.
   system_progress = 0.9 - (len(block_diff_dict) - 1) * 0.1
@@ -276,10 +251,6 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.ShowProgress(0.1, 10)
   device_specific.FullOTA_InstallEnd()
   device_specific.FullOTA_PostValidate()
-
-  if OPTIONS.backuptool:
-    script.ShowProgress(0.02, 10)
-    script.RunBackup("restore", sysmount, target_info.get('use_dynamic_partitions') == "true")
 
   if OPTIONS.extra_script is not None:
     script.AppendExtra(OPTIONS.extra_script)

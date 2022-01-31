@@ -1894,8 +1894,6 @@ ifdef BUILDING_RECOVERY_IMAGE
 
 INTERNAL_RECOVERYIMAGE_FILES := $(filter $(TARGET_RECOVERY_OUT)/%, \
     $(ALL_DEFAULT_INSTALLED_MODULES))
-INTERNAL_RECOVERYIMAGE_FILES += $(filter $(PRODUCT_OUT)/install/%, \
-    $(ALL_DEFAULT_INSTALLED_MODULES))
 
 INSTALLED_FILES_FILE_RECOVERY := $(PRODUCT_OUT)/installed-files-recovery.txt
 INSTALLED_FILES_JSON_RECOVERY := $(INSTALLED_FILES_FILE_RECOVERY:.txt=.json)
@@ -4559,7 +4557,6 @@ endif
 ifdef BOARD_GKI_SIGNING_SIGNATURE_ARGS
 	$(hide) echo 'gki_signing_signature_args=$(BOARD_GKI_SIGNING_SIGNATURE_ARGS)' >> $@
 endif
-	$(hide) echo "use_set_metadata=1" >> $@
 	$(hide) echo "multistage_support=1" >> $@
 	$(hide) echo "blockimgdiff_versions=3,4" >> $@
 ifeq ($(PRODUCT_BUILD_GENERIC_OTA_PACKAGE),true)
@@ -5011,9 +5008,6 @@ ifneq (true,$(BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT))
 	$(hide) $(call package_files-copy-root, \
 	    $(TARGET_RECOVERY_ROOT_OUT),$(zip_root)/$(PRIVATE_RECOVERY_OUT)/RAMDISK)
 endif
-	@# OTA install helpers
-	$(hide) $(call package_files-copy-root, \
-	    $(PRODUCT_OUT)/install,$(zip_root)/INSTALL)
 ifdef INSTALLED_KERNEL_TARGET
 ifneq (,$(filter true,$(BOARD_USES_RECOVERY_AS_BOOT)))
 	cp $(INSTALLED_KERNEL_TARGET) $(zip_root)/$(PRIVATE_RECOVERY_OUT)/
@@ -5402,7 +5396,6 @@ PATH=$(INTERNAL_USERIMAGES_BINARY_PATHS):$(dir $(ZIP2ZIP)):$$PATH \
         --verbose \
         --extracted_input_target_files $(patsubst %.zip,%,$(BUILT_TARGET_FILES_PACKAGE)) \
         --path $(HOST_OUT) \
-        --backup=$(backuptool) \
         $(if $(OEM_OTA_CONFIG), --oem_settings $(OEM_OTA_CONFIG)) \
         $(2) \
         $(BUILT_TARGET_FILES_PACKAGE) $(1)
@@ -5416,12 +5409,6 @@ name := $(product_name)-ota-$(FILE_NAME_TAG)
 
 INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
 INTERNAL_OTA_METADATA := $(PRODUCT_OUT)/ota_metadata
-
-ifeq ($(TARGET_EXCLUDE_BACKUPTOOL),true)
-    $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
-else
-    $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
-endif
 
 $(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
 $(INTERNAL_OTA_PACKAGE_TARGET): .KATI_IMPLICIT_OUTPUTS := $(INTERNAL_OTA_METADATA)
