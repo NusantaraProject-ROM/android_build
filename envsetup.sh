@@ -754,6 +754,11 @@ function lunch()
     [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || echo
 
     set_stuff_for_environment
+
+    echo "";
+    cat $(gettop)/build/make/ascii_logo;
+    echo"";
+
     [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || printconfig
     destroy_build_var_cache
 }
